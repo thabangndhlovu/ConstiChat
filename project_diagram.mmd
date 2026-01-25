@@ -1,0 +1,16 @@
+flowchart LR
+    User((User))
+    App[app.py\nGradio UI]
+    LLMs[llms.py\nChatGPT_response]
+    Ingest[Ingest.py\nIngest pipeline]
+    PDF[SAConstitution-web-eng.pdf]
+    KB[(knowledge_base/\nindex.faiss\nindex.pkl)]
+    OpenAI[OpenAI API]
+
+    User -->|Query| App
+    App -->|ChatGPT_response| LLMs
+    LLMs -->|Search context| KB
+    LLMs -->|Chat + Embeddings| OpenAI
+    Ingest -->|Builds| KB
+    PDF -->|Load + Split| Ingest
+    App -->|Response| User
